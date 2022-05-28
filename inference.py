@@ -3,6 +3,7 @@ import glob
 import cv2
 import pandas as pd
 import numpy as np
+import shutil
 
 
 def yolo_to_center_coord(img, str_):
@@ -13,7 +14,15 @@ def yolo_to_center_coord(img, str_):
 
 if __name__ == "__main__":
 	print('script started')
-	os.system('python ./yolov5/detect.py --weights ./weights/best_90.pt --img 512 --conf 0.15 --iou-thres 0.25 --source ./test_images --name yolo_test_images_detect --save-txt')
+
+	weights_name = 'best_90.pt'
+	img_size = 1024
+	conf = 0.15
+	iou_thres = 0.25
+	images = './test_images'
+	name_task = 'yolo_test_images_detect'
+
+	os.system(f'python ./yolov5/detect.py --weights ./weights/{weights_name} --img {img_size} --conf {conf} --iou-thres {iou_thres} --source {images} --name {name_task} --save-txt')
 	images_path = './test_images'
 	predicted_labels_path = './yolov5/runs/detect/yolo_test_images_detect/labels'
 	images = sorted(glob.glob(images_path + '/*.jpg'))
@@ -38,6 +47,11 @@ if __name__ == "__main__":
 		if not os.path.exists('./coords_center'):
 			os.mkdir('./coords_center')
 		df.to_csv(f'./coords_center/{image_file_name}.csv', index=False)
+
+	REMOVE_FILES = True
+	if REMOVE_FILES:
+		shutil.rmtree('./yolov5/runs/detect/yolo_test_images_detect/', ignore_errors=True)
+		print('dirs removed')
 
 
 
