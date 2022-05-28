@@ -15,7 +15,7 @@ def yolo_to_center_coord(img, str_):
 if __name__ == "__main__":
 	print('script started')
 
-	weights_name = 'best_90.pt'
+	weights_name = 'best_120.pt'
 	img_size = 1024
 	conf = 0.15
 	iou_thres = 0.25
