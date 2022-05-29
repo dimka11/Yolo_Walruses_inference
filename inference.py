@@ -52,7 +52,3 @@ if __name__ == "__main__":
 	if REMOVE_FILES:
 		shutil.rmtree('./yolov5/runs/detect/yolo_test_images_detect/', ignore_errors=True)
 		print('dirs removed')
-
-
-
-
